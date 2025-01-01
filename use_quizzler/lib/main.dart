@@ -38,7 +38,8 @@ class _QuizPageState extends State<QuizPage> {
       bool isFinished = quizBrain.isFinished();
 
       if (isFinished) {
-        //TODO : add dialog
+        //TODO : add dialog to notify the quiz is finished
+        showAlertDialog(context);
         return;
       }
 
@@ -78,6 +79,27 @@ class _QuizPageState extends State<QuizPage> {
           },
         ),
       ),
+    );
+  }
+
+  void showAlertDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: const Text('No more question'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+              ),
+            ],
+          );
+      }
     );
   }
 
