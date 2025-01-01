@@ -29,9 +29,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  
+
   List<Icon> scoreKeeper = [];
-  
+
   void checkAnswer(bool userAnswer) {
     setState(() {
       bool answer = quizBrain.getQuestionAnswer();
@@ -58,14 +58,14 @@ class _QuizPageState extends State<QuizPage> {
         padding: EdgeInsets.all(15.0),
         child: TextButton(
           style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all<Color>(btnColor),
-            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-            textStyle: WidgetStateProperty.all<TextStyle>(
-              TextStyle(fontSize: 20.0),
-            ),
-            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.zero)
-            )
+              backgroundColor: WidgetStateProperty.all<Color>(btnColor),
+              foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+              textStyle: WidgetStateProperty.all<TextStyle>(
+                TextStyle(fontSize: 20.0),
+              ),
+              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(borderRadius: BorderRadius.zero)
+              )
           ),
           child: Text(
             btnText.toString().toCapitalize(),
@@ -92,14 +92,17 @@ class _QuizPageState extends State<QuizPage> {
             content: const Text('No more question'),
             actions: <Widget>[
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
               ),
             ],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0.0),
+            ),
           );
-      }
+        }
     );
   }
 
