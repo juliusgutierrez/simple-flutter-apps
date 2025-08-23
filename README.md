@@ -98,3 +98,70 @@ ps-create-workitem/
 ├── report5/                               # 5 of 6 – placeholder, same layout
 └── report6/                               # 6 of 6 – placeholder, same layout
 ```
+
+# UML Relationship Manifest
+
+## Association
+- **Meaning:** Long-lived structural link; objects hold references.  
+- **Notation:** Solid line (no arrow) — bidirectional by default.  
+- **Use when:** Both classes know each other (navigation both ways) or you deliberately model a mutual link.  
+- **Code cues:** Fields on both sides.  
+- **Lifecycle/ownership:** None implied.  
+- **Multiplicity:** Yes (`1`, `0..1`, `0..*`, `1..*`).  
+- **Example:** `Customer — Order` (both reference each other).  
+
+---
+
+## Directed Association
+- **Meaning:** Structural link, but one-way navigation.  
+- **Notation:** Solid line with open arrow toward the known class.  
+- **Use when:** One class holds a field to the other; the other does not point back.  
+- **Code cues:** Field on one side only (e.g., DI collaborator).  
+- **Lifecycle/ownership:** None implied.  
+- **Multiplicity:** Yes (often `1` on source side, `0..*` on target).  
+- **Example:** `ProcessIngeniumReportService ──▷ ReportJobParser`.  
+
+---
+
+## Dependency
+- **Meaning:** “Uses” relationship; temporary coupling (method sigs, locals).  
+- **Notation:** Dashed line with open arrow.  
+- **Use when:** Type appears in parameter/return type/local var, factory use, static calls.  
+- **Code cues:** No stored field; appears only in method signatures/bodies.  
+- **Lifecycle/ownership:** None; short-lived.  
+- **Multiplicity:** You *can* show (e.g., `0..*` for `List<T>`), but uncommon.  
+- **Example:** `ReportRepository - -▷ Report` (returns `List<Report>`).  
+
+---
+
+## Interface Realization
+- **Meaning:** Class implements an interface.  
+- **Notation:** Dashed line with hollow triangle pointing to the interface.  
+- **Use when:** Concrete type fulfills a contract.  
+- **Code cues:** `class X implements IY`.  
+- **Lifecycle/ownership:** N/A.  
+- **Multiplicity:** N/A.  
+- **Example:** `ProcessIngeniumReportUseCase ----▷ ProcessIngeniumReportService` (service is an interface).  
+
+---
+
+## Aggregation
+- **Meaning:** Whole–part (weak “has-a”); parts can exist independently.  
+- **Notation:** Solid line with open diamond at the whole.  
+- **Use when:** Container references parts it does not own (catalog, team ↔ players).  
+- **Code cues:** Field(s) to parts; parts also used elsewhere / shared lifecycles.  
+- **Lifecycle/ownership:** No lifecycle control; parts survive without whole.  
+- **Multiplicity:** Yes (often whole `1`, parts `0..*`).  
+- **Example:** `Team ◇── Player`.  
+
+---
+
+## Composition
+- **Meaning:** Whole–part (strong “has-a”); parts’ lifecycle bound to whole.  
+- **Notation:** Solid line with filled diamond at the whole.  
+- **Use when:** Whole creates/owns/destroys its parts; parts make no sense alone.  
+- **Code cues:** Private constructors/factories for parts, parts not shared, removed with whole.  
+- **Lifecycle/ownership:** Strong ownership; parts die with whole.  
+- **Multiplicity:** Yes (commonly `1 ↔ 0..*`).  
+- **Example:** `Report ◆── ColumnCode` (columns live & die with the report).  
+
