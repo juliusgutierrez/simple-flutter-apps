@@ -165,3 +165,79 @@ ps-create-workitem/
 - **Multiplicity:** Yes (commonly `1 ↔ 0..*`).  
 - **Example:** `Report ◆── ColumnCode` (columns live & die with the report).  
 
+
+Application Layer
+
+Responsibility
+
+Orchestrate use cases (application workflows).
+
+Coordinate aggregates, enforce transactional boundaries, handle idempotency, retries, and mapping (DTO↔VO).
+
+Define what the app offers (inbound) and needs (outbound) via ports.
+
+Inbound/Outbound Ports
+
+Inbound (input) ports: interfaces declaring use cases (e.g., CreateProductUseCase, GetProductByIdUseCase). Implemented by application services.
+
+Outbound (output) ports: interfaces the application requires (e.g., ProductRepositoryPort, InventoryGatewayPort). Implemented by infrastructure adapters.
+
+Important Notes
+
+Depends only on Domain and port interfaces; never on infra frameworks.
+
+Contains application services that implement inbound ports and call outbound ports.
+
+Contains no business rules—business logic lives in Domain (entities/policies).
+
+Good place for transactions, unit-of-work, authorization checks, input validation, and use-case level logging/metrics.
+
+Domain Layer
+
+Responsibility
+
+The core model: aggregates, entities, value objects, domain events, and policies/specifications (pure business rules).
+
+Maintain invariants and ubiquitous language; code should “scream the domain.”
+
+Inbound/Outbound Ports
+
+None. The domain is port-free and framework-free. It exposes behavior through methods on aggregates/services and raises domain events.
+
+Important Notes
+
+No Spring/JPA/HTTP imports—pure Java.
+
+Use Domain Services/Policies only for logic that doesn’t naturally fit an aggregate.
+
+Emit Domain Events for side-effects to be handled by the application layer.
+
+Keep constructors/factories validating invariants; avoid setters that break consistency.
+
+Infrastructure Layer (Adapters)
+
+Responsibility
+
+Implement the technical details to satisfy outbound ports and expose entry points for inbound ports.
+
+Provide adapters:
+
+Input adapters (drive the app): REST controllers, schedulers, message listeners — they call inbound ports.
+
+Output adapters (driven by the app): DB repositories, message producers, HTTP clients — they implement outbound ports.
+
+Config: wiring, persistence mappings, HTTP clients, serialization.
+
+Inbound/Outbound Ports
+
+Implements outbound ports (e.g., JdbcProductRepository implements ProductRepositoryPort).
+
+Consumes inbound ports (e.g., ProductController depends on CreateProductUseCase).
+
+Important Notes
+
+Adapters translate between tech models (DTOs, JPA entities, payloads) and domain models (VOs/aggregates).
+
+Keep mappers/ORM details here; domain must not see them.
+
+One adapter per concern (REST, DB, MQ) to keep boundaries clean and testable.
