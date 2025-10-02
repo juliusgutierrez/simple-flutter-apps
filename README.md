@@ -1,22 +1,13 @@
-## Project Structure
+Completed the Ingenium special report and awaiting SF API for integration.
 
-- **app-batch-runner/**  
-  Handles command-line input and orchestrates batch execution.
+While waiting, identified a report format issue and held a discussion with the Business Unit (BU).
 
-- **core-report/**  
-  Core reporting logic and common report abstractions.
+BU confirmed the report is no longer in use. While the batch continues to execute, it does not generate the expected output, as it turned out BU had already stopped using it.
 
-- **feature-bank-report/**  
-  Batch module for bank-related reporting use cases.
+Currently coordinating with BU to secure sign-off for retiring this batch, along with 3 additional batches.
 
-- **feature-ingenium-report/**  
-  Batch module for Ingenium-related reporting use cases.
+Retirement of these 4 batches will:
 
-- **feature-workitem-submission/**  
-  Shared capability for submitting work items to external systems (e.g., Salesforce).
+Save approximately 45% of processing resources.
 
-- **infra-platform/**  
-  Infrastructure layer for platform integration, database connectivity, and external services.
-
-- **shared-kernel/**  
-  Stable domain value objects and shared abstractions across modules.
+Reduce the number of monitored batches for the AOS team.
