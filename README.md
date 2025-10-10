@@ -1,13 +1,33 @@
-Completed the Ingenium special report and awaiting SF API for integration.
+Discussion Points
 
-While waiting, identified a report format issue and held a discussion with the Business Unit (BU).
+Functional Account Setup
 
-BU confirmed the report is no longer in use. While the batch continues to execute, it does not generate the expected output, as it turned out BU had already stopped using it.
+Identify and create a functional account to be used for accessing Innova remote servers.
 
-Currently coordinating with BU to secure sign-off for retiring this batch, along with 3 additional batches.
+The account will be added to a specific Active Directory (AD) group to control access.
 
-Retirement of these 4 batches will:
+The AD group membership defines the access rights (read/write permissions).
 
-Save approximately 45% of processing resources.
+Security and Maintenance
 
-Reduce the number of monitored batches for the AOS team.
+Implement an interactive setup where the password must change every 3 months.
+
+Access is temporary and should only remain active as long as necessary.
+
+Ensure that read/write access is granted on a temporary basis for enhanced security.
+
+Naming Convention
+
+Follow the naming standard for AD groups to maintain consistency and easy identification.
+
+AD groups linked to this functional account must adhere to organizational naming conventions.
+
+Temporary Resources
+
+Clarified that functional accounts, AD groups, and servers used for this setup are all temporary in nature.
+
+Regular reviews should be conducted to ensure no unnecessary active access persists.
+
+Consultation
+
+Further guidance and validation will be sought from Sir Chipoy regarding the implementation details and compliance requirements.
